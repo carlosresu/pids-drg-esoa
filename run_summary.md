@@ -489,3 +489,53 @@
 - ESOA → Drug code coverage: 50,880/146,189 (34.8%)
 - Final output: /Users/carlosresu/github_repos/pids-drg-esoa/outputs/drugs/esoa_with_drug_code.csv
 
+## Run completed 2025-12-09 09:24:25
+
+### Code State
+- Branch: master
+- Commit: fc944cd
+- Working tree: clean
+
+### Part 1: Prepare Dependencies
+- WHO ATC refreshed
+- DrugBank lean export refreshed
+- FDA brand map rebuilt
+- FDA food catalog refreshed
+- PNF prepared
+- Annex F verified
+
+### Part 2: Match Annex F with ATC/DrugBank IDs
+- Total rows: 2,427
+- Matched ATC: 2,318 (95.5%)
+- Matched DrugBank ID: 1,701 (70.1%)
+- Output: /Users/carlosresu/github_repos/pids-drg-esoa/outputs/drugs/annex_f_with_atc.csv
+- Match reasons:
+  - matched: 2,319 (95.6%)
+  - no_match: 69 (2.8%)
+  - no_candidates: 39 (1.6%)
+
+### Part 3: Match ESOA with ATC/DrugBank IDs
+- Total rows: 146,189
+- Matched ATC: 104,314 (71.4%)
+- Matched DrugBank ID: 87,846 (60.1%)
+- Output: /Users/carlosresu/github_repos/pids-drg-esoa/outputs/drugs/esoa_with_atc.csv
+
+### Part 4: Bridge ESOA to Annex F Drug Codes
+- Total rows: 146,189
+- Matched drug codes: 51,011 (34.9%)
+- Output: /Users/carlosresu/github_repos/pids-drg-esoa/outputs/drugs/esoa_with_drug_code.csv
+- Match reasons:
+  - generic_not_in_annex: 66,964 (45.8%)
+  - matched_perfect: 51,011 (34.9%)
+  - no_perfect_match:dose_mismatch: 15,126 (10.3%)
+  - no_perfect_match:no_dose_in_esoa: 12,326 (8.4%)
+  - no_generic: 730 (0.5%)
+  - no_perfect_match:combined_mismatch: 31 (0.0%)
+  - no_perfect_match:route_mismatch: 1 (0.0%)
+
+### Overall
+- ESOA ATC coverage: 104,314/146,189 (71.4%)
+- ESOA DrugBank coverage: 87,846/146,189 (60.1%)
+- ESOA → Drug code coverage: 51,011/146,189 (34.9%)
+- Final output: /Users/carlosresu/github_repos/pids-drg-esoa/outputs/drugs/esoa_with_drug_code.csv
+
