@@ -1341,14 +1341,28 @@ def run_esoa_to_drug_code(
         
         # No dose key = no match (we cannot verify dose equivalence)
         if not esoa_dose_key:
-            return None, "no_perfect_match"
+            return None, "no_perfect_match:no_dose_in_esoa"
         
-        perfect_matches = [
-            c for c in candidates 
-            if doses_match(c.get("dose_key"), esoa_dose_key)
-            and forms_compatible(c.get("form"), esoa_form, c.get("route"), esoa_route)
-            and route_matches(c.get("route"), esoa_route)
-        ]
+        # Track why candidates fail for detailed breakdown
+        dose_match_count = 0
+        form_match_count = 0
+        route_match_count = 0
+        
+        perfect_matches = []
+        for c in candidates:
+            dose_ok = doses_match(c.get("dose_key"), esoa_dose_key)
+            form_ok = forms_compatible(c.get("form"), esoa_form, c.get("route"), esoa_route)
+            route_ok = route_matches(c.get("route"), esoa_route)
+            
+            if dose_ok:
+                dose_match_count += 1
+            if form_ok:
+                form_match_count += 1
+            if route_ok:
+                route_match_count += 1
+            
+            if dose_ok and form_ok and route_ok:
+                perfect_matches.append(c)
         
         if perfect_matches:
             # If multiple perfect matches, use tie-breaking with *_details columns
@@ -1356,8 +1370,17 @@ def run_esoa_to_drug_code(
                 perfect_matches.sort(key=lambda c: rank_candidate_for_drug_code(c, row))
             return perfect_matches[0]["drug_code"], "matched_perfect"
         
-        # No perfect match found
-        return None, "no_perfect_match"
+        # No perfect match found - determine the primary failure reason
+        # Priority: dose > form > route (check in order of strictness)
+        if dose_match_count == 0:
+            return None, "no_perfect_match:dose_mismatch"
+        elif form_match_count == 0:
+            return None, "no_perfect_match:form_mismatch"
+        elif route_match_count == 0:
+            return None, "no_perfect_match:route_mismatch"
+        else:
+            # Some candidates pass individual checks but none pass all three
+            return None, "no_perfect_match:combined_mismatch"
     
     if verbose:
         print("\nMatching ESOA to Drug Codes...")
