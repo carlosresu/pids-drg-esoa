@@ -1,7 +1,7 @@
 # Drug Pipeline Implementation Plan v2
 
 **Created:** Nov 27, 2025  
-**Updated:** Dec 4, 2025  
+**Updated:** Dec 12, 2025  
 **Objective:** Unified drug tagging with consistent algorithms for Annex F and ESOA
 
 > **IMPORTANT:** After every group of changes, update both `pipeline.md` (algorithmic logic) and this file (implementation status).

@@ -1,7 +1,7 @@
 # Drug Pipeline Progress Tracker
 
 **Started:** Nov 28, 2025  
-**Last Updated:** Dec 4, 2025 (Phase 9: Dose normalization fixes)
+**Last Updated:** Dec 12, 2025 (Documentation update for Tranche 6 deliverables)
 
 ---
 

@@ -1,7 +1,49 @@
-# eSOA Drug Matching Pipeline
+# pids-drg-esoa
+
+## eSOA Drug Matching Pipeline
 
 This repository implements the **eSOA (electronic Statement of Account) drug matching pipeline**, a dose- and form-aware system that maps free-text medicine descriptions from hospital bills (eSOAs) to standardized drug references.  
 **Annex F is now the authoritative source of truth**: every record is keyed by the Annex F Drug Code first, with remaining references acting as supporting evidence or fallbacks.
+
+**Last Updated:** December 2025
+
+---
+
+## Progress Since June 2025
+
+### Pipeline Development: 9 Phases Completed
+
+| Phase | Description | Status |
+|-------|-------------|--------|
+| **Phase 1** | Analysis: unified_constants.py, script audit, unknown token analysis | ✅ Complete |
+| **Phase 2** | Data Foundation: DuckDB, DrugBank lean tables, ESOA deduplication | ✅ Complete |
+| **Phase 3** | Core Matching: Brand swapping, combo matching, unified tagger | ✅ Complete |
+| **Phase 4** | Enhancements: Fuzzy matching, salt recognition, detail extraction | ✅ Complete |
+| **Phase 5** | Normalization: Dose ratio normalization, stopwords, PNF improvements | ✅ Complete |
+| **Phase 6** | Performance: Batch tagging (37% faster), chunked processing | ✅ Complete |
+| **Phase 7** | Fallbacks: FDA food fallback, Part 4 ESOA→Drug Code | ✅ Complete |
+| **Phase 8** | Cleanup: Metrics tracking, documentation, hardcoded values audit | ✅ Complete |
+| **Phase 9** | Part 4 Enhancement: Dose parsing, form equivalence, dose tolerance | ✅ Complete |
+
+### Current Pipeline Metrics (December 2025)
+
+| Metric | Result |
+|--------|--------|
+| **Annex F ATC Match** | 2,318 / 2,427 (95.5%) |
+| **Annex F DrugBank ID** | 1,701 / 2,427 (70.1%) |
+| **ESOA ATC Match** | 104,314 / 146,189 (71.4%) |
+| **ESOA DrugBank ID** | 87,846 / 146,189 (60.1%) |
+| **ESOA → Drug Code** | 51,011 / 146,189 (34.9%) |
+
+### Key Architectural Decisions
+
+1. **4-Part Pipeline:** Dependencies → Annex F tagging → ESOA tagging → Drug Code bridging
+2. **DuckDB for queries:** Replaced Aho-Corasick tries with SQL-based lookups
+3. **Unified tagger:** Same algorithm for Annex F and ESOA
+4. **CSV-first policy:** All data in CSV format, no Parquet
+5. **Pharmaceutical scoring:** Deterministic rules, not numeric weights
+
+---
 
 Reference hierarchy used during matching:
 

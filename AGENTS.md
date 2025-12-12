@@ -1,5 +1,7 @@
 # AGENT INSTRUCTIONS
 
+**Last Updated:** December 12, 2025
+
 These rules are meant for GPT agents. Apply them whenever you are editing this repository:
 
 > **IMPORTANT:** Before making changes to the drugs pipeline, read:

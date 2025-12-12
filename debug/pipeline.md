@@ -1,7 +1,7 @@
 # Drug Pipeline - Algorithmic Logic & Pharmaceutical Rules
 
 **Created:** Nov 27, 2025  
-**Updated:** Dec 4, 2025 (Vial size parsing fix + strict dose matching)  
+**Updated:** Dec 12, 2025 (Documentation refresh for Tranche 6)  
 
 > **IMPORTANT:** This document captures all algorithmic logic, decisions, choices, rules, and pharmaceutical principles used in the drug tagging pipeline. Update this file with every group of changes.
 >
